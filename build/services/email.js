@@ -15,6 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.listEmail = exports.createEmail = void 0;
 const email_1 = __importDefault(require("../models/email"));
 const createEmail = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    const existingGroup = yield email_1.default.findOne({ email: email });
+    if (existingGroup) {
+        return;
+    }
     const group = new email_1.default({ email: email });
     yield group.save();
     return group;
