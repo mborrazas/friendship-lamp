@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.router = void 0;
+const express_1 = require("express");
+const session_1 = require("../middleware/session");
+const group_1 = require("../controllers/group");
+const router = (0, express_1.Router)();
+exports.router = router;
+router.get("/list", session_1.checkJwt, group_1.listCtrl);
+router.post("/create", session_1.checkJwt, group_1.createCtrl);
+router.get("/get/:id", session_1.checkJwt, group_1.getCtrl);
+router.post("/delete/:id", session_1.checkJwt, group_1.deleteCtrl);
+router.post("/link", session_1.checkJwt, group_1.linkPersonToGroupCtrl);
