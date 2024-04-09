@@ -7,8 +7,7 @@ const listCtrl = async ({ body }: any, res: Response) => {
     res.send(listResponse);
 };
 
-const createCtrl = async ({ body, user }: any, res: Response) => {
-    const { id } = user;
+const createCtrl = async ({ body }: any, res: Response) => {
     const { email } = body;
     const createResponse = await createEmail(email);
     res.send(createResponse);

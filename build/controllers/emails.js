@@ -16,8 +16,7 @@ const listCtrl = ({ body }, res) => __awaiter(void 0, void 0, void 0, function* 
     res.send(listResponse);
 });
 exports.listCtrl = listCtrl;
-const createCtrl = ({ body, user }, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = user;
+const createCtrl = ({ body }, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email } = body;
     const createResponse = yield (0, email_1.createEmail)(email);
     res.send(createResponse);
