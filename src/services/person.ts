@@ -7,6 +7,7 @@ import { encrypt, verified } from "../utils/bcrypt.handle";
 import { generateToken } from "../utils/jwt.handle";
 
 const createPerson = async ({ password, name, email }: Person) => {
+    console.log('llamada aaca');
     const passwordHash = await encrypt(password);
     const person = new PersonModel({ email, password: passwordHash, name });
     const response = await person.save();
