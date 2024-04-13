@@ -43,11 +43,13 @@ const pressOn = async ({ body }: any, res: Response) => {
         const groups = await listGroupWithLamp(idLamp);
         groups.forEach(group => {
             group?.lamps?.forEach(async lampGroup => {
-                const lampGroupResponse = await getLampById(lampGroup);
-                if (!lampGroupResponse) {
-                    return;
+                if (idLamp !== lampGroup) {
+                   const lampGroupResponse = await getLampById(lampGroup);
+                    if (!lampGroupResponse) {
+                        return;
+                    }
+                    createNotification({ lamp: lampGroupResponse?._id, color: "red", creator: lamp.owner, to: lampGroupResponse?.owner });
                 }
-                createNotification({ lamp: lampGroupResponse?._id, color: "red", creator: lamp.owner, to: lampGroupResponse?.owner });
             });
         });
         res.send({ message: "NOTIFICATION_SEND" });
