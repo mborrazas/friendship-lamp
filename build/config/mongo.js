@@ -14,7 +14,7 @@ const mongoose_1 = require("mongoose");
 function dbConnect() {
     return __awaiter(this, void 0, void 0, function* () {
         const DB_URI = process.env.DB_URI;
-        yield (0, mongoose_1.connect)("mongodb+srv://friendship-test:2hpr4367bul150eI@db-mongodb-nyc3-61163-b6d6185e.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-61163");
+        yield (0, mongoose_1.connect)(DB_URI);
     });
 }
 exports.default = dbConnect;

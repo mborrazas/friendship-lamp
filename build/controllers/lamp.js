@@ -53,11 +53,13 @@ const pressOn = ({ body }, res) => __awaiter(void 0, void 0, void 0, function* (
         groups.forEach(group => {
             var _a;
             (_a = group === null || group === void 0 ? void 0 : group.lamps) === null || _a === void 0 ? void 0 : _a.forEach((lampGroup) => __awaiter(void 0, void 0, void 0, function* () {
-                const lampGroupResponse = yield (0, lamp_1.getLampById)(lampGroup);
-                if (!lampGroupResponse) {
-                    return;
+                if (idLamp !== lampGroup) {
+                    const lampGroupResponse = yield (0, lamp_1.getLampById)(lampGroup);
+                    if (!lampGroupResponse) {
+                        return;
+                    }
+                    (0, notification_1.createNotification)({ lamp: lampGroupResponse === null || lampGroupResponse === void 0 ? void 0 : lampGroupResponse._id, color: "red", creator: lamp.owner, to: lampGroupResponse === null || lampGroupResponse === void 0 ? void 0 : lampGroupResponse.owner });
                 }
-                (0, notification_1.createNotification)({ lamp: lampGroupResponse === null || lampGroupResponse === void 0 ? void 0 : lampGroupResponse._id, color: "red", creator: lamp.owner, to: lampGroupResponse === null || lampGroupResponse === void 0 ? void 0 : lampGroupResponse.owner });
             }));
         });
         res.send({ message: "NOTIFICATION_SEND" });
