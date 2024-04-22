@@ -47,14 +47,14 @@ const pressOn = async ({ body }: any, res: Response) => {
         groups.forEach(group => {
             group?.lamps?.forEach(async lampGroup => {
                 let idLampView = new mongoose.Types.ObjectId(idLamp);
-
                 // @ts-ignore
-                if (lampGroup !== idLampView) {
-                     const lampGroupResponse = await getLampById(lampGroup);
+                if (!lampGroup.equals(idLampView)) {
+                    console.log(lampGroup);
+                    const lampGroupResponse = await getLampById(lampGroup);
                     if (!lampGroupResponse) {
                         return;
                     }
-                    createNotification({ lamp: lampGroupResponse?._id, color: "red", creator: lamp.owner, to: lampGroupResponse?.owner });
+                     createNotification({ lamp: lampGroupResponse?._id, color: "red", creator: lamp.owner, to: lampGroupResponse?.owner });
                 }
             });
         });

@@ -59,7 +59,8 @@ const pressOn = ({ body }, res) => __awaiter(void 0, void 0, void 0, function* (
             (_a = group === null || group === void 0 ? void 0 : group.lamps) === null || _a === void 0 ? void 0 : _a.forEach((lampGroup) => __awaiter(void 0, void 0, void 0, function* () {
                 let idLampView = new mongoose_1.default.Types.ObjectId(idLamp);
                 // @ts-ignore
-                if (lampGroup !== idLampView) {
+                if (!lampGroup.equals(idLampView)) {
+                    console.log(lampGroup);
                     const lampGroupResponse = yield (0, lamp_1.getLampById)(lampGroup);
                     if (!lampGroupResponse) {
                         return;
