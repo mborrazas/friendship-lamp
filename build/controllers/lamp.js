@@ -8,11 +8,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkNotificationCtrl = exports.pressOn = exports.deleteCtrl = exports.getCtrl = exports.createCtrl = exports.listCtrl = void 0;
 const lamp_1 = require("../services/lamp");
 const group_1 = require("../services/group");
 const notification_1 = require("../services/notification");
+const mongoose_1 = __importDefault(require("mongoose"));
 const listCtrl = ({ body, user }, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = user;
     const listResponse = yield (0, lamp_1.listLamps)(id);
@@ -53,7 +57,9 @@ const pressOn = ({ body }, res) => __awaiter(void 0, void 0, void 0, function* (
         groups.forEach(group => {
             var _a;
             (_a = group === null || group === void 0 ? void 0 : group.lamps) === null || _a === void 0 ? void 0 : _a.forEach((lampGroup) => __awaiter(void 0, void 0, void 0, function* () {
-                if (idLamp !== lampGroup) {
+                let idLampView = new mongoose_1.default.Types.ObjectId(idLamp);
+                // @ts-ignore
+                if (lampGroup !== idLampView) {
                     const lampGroupResponse = yield (0, lamp_1.getLampById)(lampGroup);
                     if (!lampGroupResponse) {
                         return;

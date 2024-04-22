@@ -14,7 +14,6 @@ const GroupSchema = new mongoose_1.Schema({
     lamps: [
         {
             type: mongoose_1.Schema.Types.ObjectId,
-            ref: "lamp",
             required: false
         }
     ],
