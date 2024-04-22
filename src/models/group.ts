@@ -15,7 +15,6 @@ const GroupSchema = new Schema<Group>(
         lamps: [
             {
                 type: Schema.Types.ObjectId,
-                ref: "lamp",
                 required: false
             }
         ],

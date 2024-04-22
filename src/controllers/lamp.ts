@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { listLamps, createLamp, deleteLamp, getLamp, getLampById } from "../services/lamp";
 import { listGroupWithLamp } from "../services/group";
 import { createNotification, checkNotification, cleanNotifications } from "../services/notification";
+import mongoose from "mongoose";
 
 const listCtrl = async ({ body, user }: any, res: Response) => {
     const { id } = user;
@@ -23,6 +24,8 @@ const getCtrl = async ({ body, user }: any, res: Response) => {
     res.send(getResponse);
 }
 
+
+
 const deleteCtrl = async ({ body, user }: any, res: Response) => {
     const { id } = user;
     const { idLamp } = body;
@@ -43,8 +46,11 @@ const pressOn = async ({ body }: any, res: Response) => {
         const groups = await listGroupWithLamp(idLamp);
         groups.forEach(group => {
             group?.lamps?.forEach(async lampGroup => {
-                if (idLamp !== lampGroup) {
-                   const lampGroupResponse = await getLampById(lampGroup);
+                let idLampView = new mongoose.Types.ObjectId(idLamp);
+
+                // @ts-ignore
+                if (lampGroup !== idLampView) {
+                     const lampGroupResponse = await getLampById(lampGroup);
                     if (!lampGroupResponse) {
                         return;
                     }
